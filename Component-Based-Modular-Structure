@@ -1,0 +1,137 @@
+# ========================================
+# TERRAFORM PROJECT STRUCTURE
+# ========================================
+# Component-Based Modular Architecture
+# Organized by AWS service categories for
+# better maintainability and reusability
+
+## Project Structure (Current)
+terraform/
+├── main.tf                 # Main orchestration file - calls all modules
+│                           # Defines module dependencies and data flow
+├── variables.tf            # Root-level input variables
+│                           # Global configuration parameters
+├── outputs.tf              # Root-level outputs from modules
+│                           # Exposes important values like URLs and endpoints
+├── terraform.tfvars        # Variable values (environment-specific)
+│                           # Contains actual values for deployment
+├── terraform.tfvars.example # Example variable values template
+│                           # Template for copying to terraform.tfvars
+├── data.tf                 # Data sources (AMI lookups, etc.)
+│                           # Fetches dynamic data from AWS
+├── backend.tf              # Terraform backend configuration (S3)
+│                           # Configures remote state storage
+├── provider.tf             # Provider configuration (AWS)
+│                           # AWS provider settings and default tags
+├── commands.sh             # Helper commands script
+│                           # Utility script for common operations
+└── modules/                # Reusable Terraform modules
+    │                       # Organized by service category
+    ├── network/            # Network infrastructure components
+    │   │                   # VPC, security groups, and networking
+    │   ├── vpc/            # VPC module - creates VPC, subnets, gateways
+    │   │   │               # Manages core network infrastructure
+    │   │   ├── main.tf     # VPC resources definition
+    │   │   │               # Creates VPC, subnets, gateways, route tables
+    │   │   ├── variables.tf # VPC input variables
+    │   │   │               # CIDR blocks, AZ configuration
+    │   │   └── outputs.tf  # VPC outputs (vpc_id, subnet_ids, etc.)
+    │   │                   # Exposes VPC and subnet IDs
+    │   └── security/       # Security groups module
+    │       │               # Manages all security group rules
+    │       ├── main.tf     # Security group resources
+    │       │               # ELB, Beanstalk, Backend, Bastion SGs
+    │       ├── variables.tf # Security group input variables
+    │       │               # VPC ID, CIDR blocks, SSH IP ranges
+    │       └── outputs.tf  # Security group outputs (sg_ids)
+    │                       # Exposes security group IDs
+    ├── storage/            # Data storage components
+    │   │                   # Database and caching services
+    │   ├── rds/            # RDS MySQL database module
+    │   │   │               # Manages MySQL database instance
+    │   │   ├── main.tf     # RDS instance and subnet group
+    │   │   │               # Creates DB instance, subnet group
+    │   │   ├── variables.tf # RDS configuration variables
+    │   │   │               # DB credentials, instance class, storage
+    │   │   └── outputs.tf  # RDS endpoints and identifiers
+    │   │                   # Exposes database connection details
+    │   └── elasticache/    # ElastiCache Memcached module
+    │       │               # Manages Memcached cluster
+    │       ├── main.tf     # ElastiCache cluster resources
+    │       │               # Creates cache cluster and subnet group
+    │       ├── variables.tf # Cache configuration variables
+    │       │               # Node type, cache nodes count
+    │       └── outputs.tf  # Cache endpoints
+    │                       # Exposes cache connection details
+    ├── messaging/          # Message queue components
+    │   │                   # Asynchronous messaging services
+    │   └── amazonmq/       # Amazon MQ RabbitMQ module
+    │       │               # Manages RabbitMQ message broker
+    │       ├── main.tf     # Amazon MQ broker resources
+    │       │               # Creates RabbitMQ broker instance
+    │       ├── variables.tf # MQ configuration variables
+    │       │               # Broker credentials, instance type
+    │       └── outputs.tf  # MQ endpoints and identifiers
+    │                       # Exposes broker connection details
+    └── compute/            # Compute infrastructure components
+        │                   # EC2 instances and application hosting
+        ├── bastion/        # Bastion host module for secure access
+        │   │               # Jump server for database access
+        │   ├── main.tf     # Bastion EC2 instance and provisioners
+        │   │               # Creates EC2 instance with DB setup scripts
+        │   ├── variables.tf # Bastion configuration variables
+        │   │               # Instance type, AMI, SSH configuration
+        │   ├── outputs.tf  # Bastion instance details
+        │   │               # Exposes public IP and instance ID
+        │   └── templates/  # Configuration templates
+        │       │           # Script templates for provisioning
+        │       └── db-deploy.tmpl # Database deployment script
+        │                   # Template for database initialization
+        ├── beanstalk/      # Elastic Beanstalk application module
+        │   │               # Java application hosting platform
+        │   ├── main.tf     # Beanstalk app, environment & IAM roles
+        │   │               # Creates application, environment, IAM roles
+        │   ├── variables.tf # Beanstalk configuration variables
+        │   │               # Application name, platform, scaling settings
+        │   └── outputs.tf  # Beanstalk application URLs
+        │                   # Exposes application endpoint URL
+        └── keypairs/       # SSH key pair module
+            │               # Manages SSH access keys
+            ├── main.tf     # SSH key pair resources
+            │               # Creates AWS key pair from public key
+            ├── variables.tf # Key pair configuration variables
+            │               # Key name and environment settings
+            └── outputs.tf  # Key pair name and fingerprint
+                            # Exposes key pair details for EC2 instances
+
+# ========================================
+# ARCHITECTURE BENEFITS
+# ========================================
+# 1. Modularity: Each component is self-contained
+# 2. Reusability: Modules can be reused across environments
+# 3. Maintainability: Easy to update individual components
+# 4. Scalability: Easy to add new services/components
+# 5. Best Practices: Follows Terraform module conventions
+
+# ========================================
+# KEY FEATURES
+# ========================================
+# • Multi-tier architecture with 2-AZ deployment
+# • Elastic Beanstalk for Java application hosting
+# • RDS MySQL for database storage
+# • ElastiCache Memcached for caching layer
+# • Amazon MQ RabbitMQ for message queuing
+# • Bastion host for secure database access
+# • Comprehensive security groups configuration
+# • Consistent header formatting across all modules
+# • S3 backend for state management
+
+# ========================================
+# DEPLOYMENT WORKFLOW
+# ========================================
+# 1. Configure terraform.tfvars with your values
+# 2. Initialize: terraform init
+# 3. Plan: terraform plan
+# 4. Apply: terraform apply
+# 5. Access application via Beanstalk URL
+# 6. Use bastion host for database operations

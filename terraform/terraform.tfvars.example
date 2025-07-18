@@ -1,0 +1,70 @@
+# Copy this file to terraform.tfvars and update with your actual values
+
+# AWS Region
+aws_region = "eu-north-1"
+
+# Environment
+environment = "dev"
+
+# Project Name
+project_name = "terraform-state-demo"
+
+# Key Pair Configuration
+Priv_Key_Path = "modules/compute/keypairs/keys/keypair_ssh"
+Pub_Key_Path  = "modules/compute/keypairs/keys/keypair_ssh.pub"
+
+# VPC Configuration
+vpc_cidr = "10.0.0.0/16"
+
+# Availability Zones for eu-north-1 (Stockholm) - Using 2 AZs for cost optimization
+azs = ["eu-north-1a", "eu-north-1b"]
+
+# Subnet Configuration
+private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+
+# Security Group Configuration
+allowed_ssh_ips = ["0.0.0.0/0"] # Replace with your actual IP addresses
+
+# Bastion Host Configuration
+username       = "ubuntu"
+instance_type  = "t3.micro"
+instance_count = 1
+
+# Amazon MQ Configuration
+mq_username = "rabbit"
+mq_password = "Gr33n@pple123456" # At least 12 characters required for RabbitMQ
+
+# RDS Configuration
+db_name              = "accounts"
+db_username          = "admin"
+db_password          = "admin123"
+db_instance_class    = "db.t3.micro"
+db_allocated_storage = 20
+db_engine            = "mysql"
+db_engine_version    = "8.0.35"
+
+# ElastiCache Configuration
+elasticache_node_type = "cache.t3.micro"
+elasticache_num_nodes = 1
+
+# Amazon MQ Additional Configuration
+rmq_username           = "rabbit"
+rmq_password           = "Gr33n@pple123456"
+amazonmq_instance_type = "mq.t3.micro"
+
+# Bastion Host Additional Configuration
+bastion_instance_type  = "t3.micro"
+bastion_instance_count = 1
+db_template_path       = "./modules/compute/bastion/templates/db-deploy.tmpl"
+ssh_username           = "ubuntu"
+private_keypath        = "./modules/compute/keypairs/keys/keypair_ssh"
+
+# Elastic Beanstalk Configuration
+beanstalk_app_name       = "vprofile-app"
+beanstalk_env_name       = "vprofile-env"
+beanstalk_solution_stack = "64bit Amazon Linux 2023 v5.7.1 running Tomcat 11 Corretto 21"
+beanstalk_cname_prefix   = "vprofile-prod"
+beanstalk_instance_type  = "t3.micro"
+beanstalk_min_size       = "1"
+beanstalk_max_size       = "8"
