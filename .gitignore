@@ -1,0 +1,9 @@
+# ==============================================================================
+# Terraform Beanstalk Backend Infrastructure - .gitignore
+# ==============================================================================
+
+# Project specific files
+vprofile-project/
+
+# System files
+.DS_Store

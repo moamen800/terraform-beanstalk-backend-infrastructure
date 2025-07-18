@@ -109,7 +109,38 @@ mq_password = "your-secure-mq-password"
 - Reduced complexity with fewer routing tables
 - Production-ready with high availability maintained
 
-## 🛠️ Commands
+## � CI/CD Pipeline
+
+**GitHub Actions Integration:**
+This project includes automated CI/CD pipeline with Terraform validation and security checks.
+
+**Pipeline Features:**
+- **Terraform Format Check**: Ensures code formatting standards
+- **Terraform Validation**: Validates configuration syntax
+- **Security Scanning**: Basic security checks for sensitive data
+- **Environment Secrets**: Secure AWS credentials management
+
+**Environment Setup:**
+1. **GitHub Environment**: Create `terraform-beanstalk-secrets` environment
+2. **Required Secrets**:
+   - `AWS_ACCESS_KEY_ID`
+   - `AWS_SECRET_ACCESS_KEY`
+   - `AWS_REGION`
+
+**Local Testing:**
+```bash
+# Run CI validation locally
+./scripts/ci-validation.sh
+
+# Run simple CI tests
+./scripts/test-ci.sh
+```
+
+**Pipeline Triggers:**
+- Push to `main` branch
+- Pull requests to `main` branch
+
+## �🛠️ Commands
 
 **Basic Operations:**
 ```bash

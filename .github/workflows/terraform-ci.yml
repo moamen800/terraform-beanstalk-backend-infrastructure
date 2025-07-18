@@ -10,6 +10,7 @@ jobs:
   terraform-check:
     name: Terraform Check
     runs-on: ubuntu-latest
+    environment: terraform-beanstalk-secrets
     
     steps:
     - name: Checkout
@@ -45,7 +46,8 @@ jobs:
         AWS_REGION: ${{ secrets.AWS_REGION }}
       continue-on-error: true
 
-# Required GitHub Secrets:
+# Required GitHub Environment: terraform-beanstalk-secrets
+# Environment Secrets:
 # AWS_ACCESS_KEY_ID - Your AWS Access Key ID
 # AWS_SECRET_ACCESS_KEY - Your AWS Secret Access Key  
 # AWS_REGION - AWS region (e.g., eu-north-1)
