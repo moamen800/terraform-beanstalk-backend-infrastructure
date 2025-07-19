@@ -1,6 +1,6 @@
-# Terraform Beanstalk Backend Infrastructure
+# 🏗️ Terraform AWS Beanstalk Backend Infrastructure
 
-AWS multi-tier infrastructure deployment using Terraform with **Component-Based Modular Structure**. Features 2-AZ deployment for cost optimization while maintaining high availability.
+**Complete enterprise-grade backend infrastructure** for Java applications using AWS Elastic Beanstalk. This project demonstrates Infrastructure as Code (IaC) best practices with a **modular, reusable Terraform architecture** that includes database, caching, messaging, and secure networking components.
 
 ## 🏗️ Architecture
 
