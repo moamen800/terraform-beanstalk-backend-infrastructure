@@ -1,4 +1,4 @@
-# 🏗️ Terraform AWS Beanstalk Backend Infrastructure
+# Terraform AWS Beanstalk Backend Infrastructure
 
 **Complete enterprise-grade backend infrastructure** for Java applications using AWS Elastic Beanstalk. This project demonstrates Infrastructure as Code (IaC) best practices with a **modular, reusable Terraform architecture** that includes database, caching, messaging, and secure networking components.
 
@@ -47,7 +47,7 @@ terraform/
 
 1. **Setup Repository:**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/moamen800/terraform-beanstalk-backend-infrastructure
 cd terraform
 cp terraform.tfvars.example terraform.tfvars
 ```
